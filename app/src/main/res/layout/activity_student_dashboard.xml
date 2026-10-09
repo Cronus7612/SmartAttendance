@@ -1,0 +1,586 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAFC"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Telegram-Style Top Bar Header -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_toStartOf="@id/topActionIcons"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/student_portal_title"
+                android:textColor="#0F172A"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvStudentHeaderInfo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:textColor="#2563EB"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                tools:text="Aditya Thete (#1)" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/topActionIcons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <!-- Notification Bell -->
+            <TextView
+                android:id="@+id/btnNotificationBell"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:contentDescription="@string/notification_bell_desc"
+                android:padding="6dp"
+                android:text="🔔"
+                android:textSize="20sp" />
+
+            <!-- Telegram-Style Circular Profile Avatar -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/btnStudentAvatar"
+                android:layout_width="38dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="6dp"
+                app:cardBackgroundColor="#2563EB"
+                app:cardCornerRadius="19dp"
+                app:cardElevation="2dp"
+                app:strokeColor="#FFFFFF"
+                app:strokeWidth="1dp">
+
+                <TextView
+                    android:id="@+id/tvAvatarInitials"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="👤"
+                    android:textColor="#FFFFFF"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Student Action Grid (5 Option Cards) -->
+            <GridLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:columnCount="2"
+                android:rowCount="3">
+
+                <!-- 1. Attendance Portal -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardStudentAttendance"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardBackgroundColor="#2563EB"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/student_option_attendance"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- 2. Campus Notices -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardStudentNotices"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardBackgroundColor="#D97706"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/student_option_notices"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- 3. Leave Tracker -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardStudentLeave"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardBackgroundColor="#7C3AED"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/student_option_leave"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- 4. Target Calculator -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardStudentTarget"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardBackgroundColor="#0F172A"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/student_option_target"
+                            android:textColor="#38BDF8"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- 5. Timetable -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardStudentTimetable"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_rowWeight="1"
+                    android:layout_columnWeight="1"
+                    android:layout_margin="4dp"
+                    app:cardBackgroundColor="#059669"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="3dp">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:orientation="vertical"
+                        android:padding="12dp">
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/student_option_timetable"
+                            android:textColor="#FFFFFF"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </GridLayout>
+
+            <!-- Expandable Attendance Panel (GONE by default) -->
+            <LinearLayout
+                android:id="@+id/layoutStudentAttendancePanel"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <!-- Overall Attendance Summary Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    app:cardBackgroundColor="#2563EB"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="4dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="18dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/overall_attendance"
+                            android:textColor="#DBEAFE"
+                            android:textSize="14sp" />
+
+                        <TextView
+                            android:id="@+id/tvOverallPercentage"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="2dp"
+                            android:text="@string/default_percentage"
+                            android:textColor="#FFFFFF"
+                            android:textSize="36sp"
+                            android:textStyle="bold" />
+
+                        <ProgressBar
+                            android:id="@+id/pbOverall"
+                            style="?android:attr/progressBarStyleHorizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="10dp"
+                            android:layout_marginTop="10dp"
+                            android:max="100"
+                            android:progress="0"
+                            android:progressDrawable="@android:drawable/progress_horizontal" />
+
+                        <TextView
+                            android:id="@+id/tvExamStatus"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:text="@string/status_no_data"
+                            android:textColor="#BBF7D0"
+                            android:textSize="13sp"
+                            android:textStyle="bold"
+                            tools:text="Status: No Attendance Recorded (0%)" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Filter Mode Toggle Buttons (Subject-wise vs Month-wise) -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:orientation="horizontal">
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnSubjectWiseFilter"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_marginEnd="4dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#2563EB"
+                        android:text="📚 Subject-wise"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        app:cornerRadius="8dp" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnMonthWiseFilter"
+                        android:layout_width="0dp"
+                        android:layout_height="44dp"
+                        android:layout_marginStart="4dp"
+                        android:layout_weight="1"
+                        android:backgroundTint="#64748B"
+                        android:text="📅 Month-wise"
+                        android:textAllCaps="false"
+                        android:textColor="#FFFFFF"
+                        android:textSize="12sp"
+                        app:cornerRadius="8dp" />
+                </LinearLayout>
+
+                <!-- Monthwise Attendance Summary Card -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/cardMonthWiseSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="#FFFFFF"
+                    app:cardCornerRadius="14dp"
+                    app:cardElevation="3dp"
+                    app:strokeColor="#E2E8F0"
+                    app:strokeWidth="1dp">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        android:padding="16dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/monthwise_attendance_title"
+                            android:textColor="#1E293B"
+                            android:textSize="15sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/tvMonthwiseInfo"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="6dp"
+                            android:textColor="#334155"
+                            android:textSize="13sp"
+                            tools:text="Current Month (Feb 2025): 85% Attendance" />
+
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <!-- Subjectwise Attendance Cards Section -->
+                <LinearLayout
+                    android:id="@+id/layoutSubjectCards"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:text="@string/subject_breakdown"
+                        android:textColor="#334155"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <!-- 1. Subject 1 Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardSub1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeColor="#E2E8F0"
+                        app:strokeWidth="1dp">
+                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp">
+                            <TextView android:id="@+id/tvSub1Percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:text="@string/default_percentage" android:textColor="#DC2626" android:textSize="17sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/s1" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_toStartOf="@id/tvSub1Percent" android:text="@string/sub_core_java" android:textColor="#1E293B" android:textSize="15sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/tvSub1Count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/s1" android:layout_alignParentStart="true" android:layout_toStartOf="@id/tvSub1Percent" android:layout_marginTop="4dp" android:text="@string/default_attended" android:textColor="#64748B" android:textSize="13sp" />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 2. Subject 2 Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardSub2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeColor="#E2E8F0"
+                        app:strokeWidth="1dp">
+                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp">
+                            <TextView android:id="@+id/tvSub2Percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:text="@string/default_percentage" android:textColor="#DC2626" android:textSize="17sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/s2" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_toStartOf="@id/tvSub2Percent" android:text="@string/sub_entrepreneurship" android:textColor="#1E293B" android:textSize="15sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/tvSub2Count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/s2" android:layout_alignParentStart="true" android:layout_toStartOf="@id/tvSub2Percent" android:layout_marginTop="4dp" android:text="@string/default_attended" android:textColor="#64748B" android:textSize="13sp" />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 3. Subject 3 Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardSub3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeColor="#E2E8F0"
+                        app:strokeWidth="1dp">
+                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp">
+                            <TextView android:id="@+id/tvSub3Percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:text="@string/default_percentage" android:textColor="#DC2626" android:textSize="17sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/s3" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_toStartOf="@id/tvSub3Percent" android:text="@string/sub_software_engineering" android:textColor="#1E293B" android:textSize="15sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/tvSub3Count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/s3" android:layout_alignParentStart="true" android:layout_toStartOf="@id/tvSub3Percent" android:layout_marginTop="4dp" android:text="@string/default_attended" android:textColor="#64748B" android:textSize="13sp" />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 4. Subject 4 Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardSub4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeColor="#E2E8F0"
+                        app:strokeWidth="1dp">
+                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp">
+                            <TextView android:id="@+id/tvSub4Percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:text="@string/default_percentage" android:textColor="#DC2626" android:textSize="17sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/s4" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_toStartOf="@id/tvSub4Percent" android:text="@string/sub_cloud_computing" android:textColor="#1E293B" android:textSize="15sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/tvSub4Count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/s4" android:layout_alignParentStart="true" android:layout_toStartOf="@id/tvSub4Percent" android:layout_marginTop="4dp" android:text="@string/default_attended" android:textColor="#64748B" android:textSize="13sp" />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 5. Subject 5 Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardSub5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeColor="#E2E8F0"
+                        app:strokeWidth="1dp">
+                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp">
+                            <TextView android:id="@+id/tvSub5Percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:text="@string/default_percentage" android:textColor="#DC2626" android:textSize="17sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/s5" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_toStartOf="@id/tvSub5Percent" android:text="@string/sub_ui_ux" android:textColor="#1E293B" android:textSize="15sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/tvSub5Count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/s5" android:layout_alignParentStart="true" android:layout_toStartOf="@id/tvSub5Percent" android:layout_marginTop="4dp" android:text="@string/default_attended" android:textColor="#64748B" android:textSize="13sp" />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 6. Subject 6 Card -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardSub6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        app:cardBackgroundColor="#FFFFFF"
+                        app:cardCornerRadius="12dp"
+                        app:cardElevation="2dp"
+                        app:strokeColor="#E2E8F0"
+                        app:strokeWidth="1dp">
+                        <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="16dp">
+                            <TextView android:id="@+id/tvSub6Percent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentEnd="true" android:layout_centerVertical="true" android:text="@string/default_percentage" android:textColor="#DC2626" android:textSize="17sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/s6" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_alignParentStart="true" android:layout_toStartOf="@id/tvSub6Percent" android:text="@string/sub_project" android:textColor="#1E293B" android:textSize="15sp" android:textStyle="bold" />
+                            <TextView android:id="@+id/tvSub6Count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:layout_below="@id/s6" android:layout_alignParentStart="true" android:layout_toStartOf="@id/tvSub6Percent" android:layout_marginTop="4dp" android:text="@string/default_attended" android:textColor="#64748B" android:textSize="13sp" />
+                        </RelativeLayout>
+                    </com.google.android.material.card.MaterialCardView>
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- Campus Broadcast Notices Card (GONE by default) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardNoticeSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#FEF3C7"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="2dp"
+                app:strokeColor="#FDE68A"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/campus_announcement_title"
+                        android:textColor="#92400E"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvAnnouncementInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:text="@string/no_announcements"
+                        android:textColor="#78350F"
+                        android:textSize="13sp" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <!-- Target Calculator Card (GONE by default) -->
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/cardTargetSection"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp"
+                android:visibility="gone"
+                app:cardBackgroundColor="#0F172A"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="3dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="@string/target_calculator_title"
+                        android:textColor="#38BDF8"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvTargetCalculatorInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="#F1F5F9"
+                        android:textSize="13sp"
+                        tools:text="Attend next 5 lectures to reach 75%" />
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

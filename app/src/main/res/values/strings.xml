@@ -1,0 +1,107 @@
+<resources>
+    <string name="app_name">SmartAttendance</string>
+    <string name="faculty_info_format">👨‍🏫 %1$s | ID: #%2$s</string>
+    <string name="class_subject_format">%1$s | %2$s</string>
+    <string name="student_roster_format">Student Roster (%1$d Students)</string>
+    <string name="student_info_format">Roll %1$s: %2$s</string>
+
+    <!-- Admin Dashboard Strings -->
+    <string name="admin_panel_title">Administrator Panel</string>
+    <string name="admin_profile_format">👤 %1$s | ID: #%2$s (Tap for Profile)</string>
+    <string name="teacher_management_title">👨‍🏫 Teacher / Faculty Management</string>
+    <string name="teacher_management_desc">Add new faculties or remove existing faculties from directory</string>
+    <string name="manage_teachers_btn">Manage Teachers</string>
+    <string name="student_roster_title">🎓 Student Roster Management</string>
+    <string name="student_roster_desc">Open classes to add, auto-sort, or delete students</string>
+    <string name="open_student_mgmt_btn">Open Student Management</string>
+    <string name="admin_mgmt_title">🛡️ Admin Management</string>
+    <string name="admin_mgmt_desc">Create another admin with automatic 8-digit ID</string>
+    <string name="add_new_admin_btn">+ Add New Admin</string>
+
+    <string name="no_students_registered">No students registered. Click \'+ Add Student\' to register.</string>
+    <string name="student_item_format">Roll #%1$s : %2$s</string>
+    <string name="no_faculty_found">No faculty members found. Click \'+ Add New Teacher\' to add.</string>
+    <string name="teacher_item_format">%1$s\nAssigned ID: #%2$s</string>
+    <string name="remove_action">✕ Remove</string>
+
+    <!-- Student Dashboard Strings -->
+    <string name="student_portal_title">Student Portal</string>
+    <string name="student_header_format">🎓 Logged in: %1$s | Roll No: #%2$s (Tap for Profile)</string>
+    <string name="overall_attendance">Overall Attendance</string>
+    <string name="default_percentage">0%</string>
+    <string name="default_attended">Attended: 0/0</string>
+    <string name="subject_breakdown">Subject Breakdown</string>
+    <string name="sub_core_java">Core Java</string>
+    <string name="sub_entrepreneurship">Entrepreneurship</string>
+    <string name="sub_software_engineering">Software Engineering</string>
+    <string name="sub_cloud_computing">Cloud Computing</string>
+    <string name="sub_ui_ux">UI &amp; UX Design</string>
+    <string name="sub_project">Project (Review / Lab)</string>
+    <string name="attended_format">Attended: %1$d/%2$d</string>
+    <string name="percent_format">%1$d%%</string>
+    <string name="status_eligible">Status: Eligible for Exams (Safe)</string>
+    <string name="status_defaulter">Status: Defaulter / Below 75%</string>
+    <string name="status_no_data">Status: No Attendance Recorded (0%)</string>
+
+    <!-- Target Calculator & Advanced Features -->
+    <string name="target_calculator_title">🎯 Target / Safe-Bunk Calculator</string>
+    <string name="target_calculator_safe_bunk">You can safely miss next %1$d lectures and stay above 75%%!</string>
+    <string name="target_calculator_need_more">You need to attend next %1$d consecutive lectures to reach 75%%!</string>
+    <string name="target_calculator_on_target">Your attendance is exactly 75%%. Attend all upcoming lectures!</string>
+    <string name="target_calculator_no_history">Attend upcoming lectures to build attendance history.</string>
+    <string name="apply_leave_btn">📝 Apply for Leave</string>
+    <string name="campus_announcement_title">📢 Campus Broadcast &amp; Notices</string>
+    <string name="no_announcements">No campus announcements posted.</string>
+    <string name="quick_roll_grid_btn">Quick Roll Grid</string>
+    <string name="parent_portal_title">👨‍👩‍👧 Parent / Guardian Portal</string>
+    <string name="child_overall_attendance">Child Overall Attendance</string>
+
+    <!-- Quick Roll Grid Strings -->
+    <string name="quick_roll_grid_title">Quick Roll Grid Attendance</string>
+    <string name="quick_roll_grid_instruction">Tap roll number to toggle Present (Green) / Absent (Red):</string>
+    <string name="save_submit_grid_btn">Save &amp; Submit Grid Attendance</string>
+    <string name="select_all_btn">✓ Select All</string>
+    <string name="deselect_all_btn">✕ Deselect All</string>
+
+    <!-- Executive Broadcast & Leave Strings -->
+    <string name="post_broadcast_notice_title">📢 Campus Broadcast &amp; Notice Board</string>
+    <string name="post_broadcast_notice_desc">Broadcast college notices, events, or emergency circulars to all students &amp; staff</string>
+    <string name="post_broadcast_btn">Post Broadcast Notice</string>
+    <string name="leave_approval_center_title">📝 Leave Application Approval Center</string>
+    <string name="leave_approval_center_desc">Review, approve, or reject digital medical &amp; duty leave requests</string>
+    <string name="manage_leaves_btn">Manage Leave Applications</string>
+
+    <!-- Option Hub & Date Selection Strings -->
+    <string name="faculty_dashboard_title">Faculty Dashboard</string>
+    <string name="option_take_attendance">📋 Take Attendance</string>
+    <string name="option_post_notice">📢 Post Faculty Notice</string>
+    <string name="option_quick_grid">⚡ Quick Roll Grid</string>
+    <string name="option_lecture_history">📊 Lecture History &amp; Logs</string>
+    <string name="option_adjust_roster">👥 Adjust Student Roster</string>
+    <string name="select_date_btn">📅 Select Date: %1$s</string>
+    <string name="monthwise_attendance_title">📅 Monthwise Attendance Summary</string>
+    <string name="monthwise_summary_format">%1$s Summary: %2$d%% Overall Attendance</string>
+    <string name="notification_bell_desc">Notifications</string>
+
+    <!-- Student Option Hub & Telegram Header Strings -->
+    <string name="student_option_attendance">📊 Attendance</string>
+    <string name="student_option_notices">📢 Campus Notices</string>
+    <string name="student_option_leave">📝 Leave Tracker</string>
+    <string name="student_option_target">📊 Analytics</string>
+    <string name="student_option_timetable">📅 Timetable</string>
+    <string name="leave_tracker_title">📝 Leave Application &amp; Status</string>
+    <string name="leave_status_approved">APPROVED 🟢</string>
+    <string name="leave_status_rejected">REJECTED 🔴</string>
+    <string name="leave_status_pending">PENDING 🟡</string>
+    <string name="student_login_hint">Enter Name or Student ID (#39108421)</string>
+    <string name="select_class_prompt">Select Class...</string>
+    <string name="select_subject_prompt">Select Subject...</string>
+    <string name="analytics_title">📊 Academic Exam Eligibility &amp; Analytics</string>
+
+    <!-- Export Report & Defaulter Warning Strings -->
+    <string name="export_report_btn">📄 Export Attendance Report</string>
+    <string name="export_report_title">📄 Export Attendance Sheet &amp; CSV</string>
+    <string name="defaulter_alert_title">🚨 DEFAULTER WARNING (&lt;75%)</string>
+    <string name="defaulter_alert_msg">Attendance is below 75%! Hall ticket for Term End Exams may be withheld. Attend upcoming lectures immediately.</string>
+    <string name="todays_schedule_title">📅 Today\'s Scheduled Lectures (Tap to Mark)</string>
+</resources>

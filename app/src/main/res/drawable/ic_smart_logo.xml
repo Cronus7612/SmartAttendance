@@ -1,0 +1,145 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt"
+    android:width="512dp"
+    android:height="512dp"
+    android:viewportWidth="512"
+    android:viewportHeight="512">
+
+    <!-- Premium Rounded Squircle Background (Cyber Indigo Gradient) -->
+    <path
+        android:pathData="M110,32 L402,32 A78,78 0 0,1 480,110 L480,402 A78,78 0 0,1 402,480 L110,480 A78,78 0 0,1 32,402 L32,110 A78,78 0 0,1 110,32 Z">
+        <aapt:attr name="android:fillColor">
+            <gradient
+                android:angle="135"
+                android:endColor="#312E81"
+                android:centerColor="#1E1B4B"
+                android:startColor="#0F172A"
+                android:type="linear" />
+        </aapt:attr>
+    </path>
+
+    <!-- Subtle Tech Ambient Glow Rings -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#6366F1"
+        android:strokeWidth="4"
+        android:strokeAlpha="0.25"
+        android:pathData="M256,76 C355.4,76 436,156.6 436,256 C436,355.4 355.4,436 256,436 C156.6,436 76,355.4 76,256 C76,156.6 156.6,76 256,76 Z" />
+
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#38BDF8"
+        android:strokeWidth="2"
+        android:strokeAlpha="0.35"
+        android:pathData="M256,104 C339.9,104 408,172.1 408,256 C408,339.9 339.9,408 256,408 C172.1,408 104,339.9 104,256 C104,172.1 172.1,104 256,104 Z" />
+
+    <!-- AI Pulse Top Arc -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#38BDF8"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:pathData="M160,130 A165,165 0 0,1 256,110" />
+
+    <!-- AI Pulse Bottom Arc -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#818CF8"
+        android:strokeWidth="6"
+        android:strokeLineCap="round"
+        android:pathData="M352,382 A165,165 0 0,1 256,402" />
+
+    <!-- Outer Hex Shield (Security & Verification) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeWidth="10"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:angle="90"
+                android:endColor="#06B6D4"
+                android:startColor="#4F46E5"
+                android:type="linear" />
+        </aapt:attr>
+        <pathData>
+            M256,120 L376,188 L376,324 L256,392 L136,324 L136,188 Z
+        </pathData>
+    </path>
+
+    <!-- Stylized Futuristic 'S' Top Arc (Cyan to Indigo) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeWidth="22"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="170"
+                android:startY="170"
+                android:endX="330"
+                android:endY="220"
+                android:startColor="#38BDF8"
+                android:endColor="#6366F1"
+                android:type="linear" />
+        </aapt:attr>
+        <pathData>
+            M320,180 C290,160 220,160 195,190 C175,215 190,250 240,265 L272,275
+        </pathData>
+    </path>
+
+    <!-- Stylized Futuristic 'S' Bottom Loop (Neon Emerald Gradient) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeWidth="22"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round">
+        <aapt:attr name="android:strokeColor">
+            <gradient
+                android:startX="190"
+                android:startY="280"
+                android:endX="350"
+                android:endY="340"
+                android:startColor="#6366F1"
+                android:centerColor="#06B6D4"
+                android:endColor="#10B981"
+                android:type="linear" />
+        </aapt:attr>
+        <pathData>
+            M240,265 C295,280 330,305 315,340 C300,370 245,375 200,345
+        </pathData>
+    </path>
+
+    <!-- Central Glowing Core Checkmark (Attendance Presence) -->
+    <path
+        android:fillColor="#00000000"
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="16"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M210,262 L246,298 L318,222" />
+
+    <!-- AI Cyber Smart Nodes -->
+    <path
+        android:fillColor="#38BDF8"
+        android:pathData="M376,188 M366,188 A10,10 0 1,0 386,188 A10,10 0 1,0 366,188 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M376,188 M372,188 A4,4 0 1,0 380,188 A4,4 0 1,0 372,188 Z" />
+
+    <path
+        android:fillColor="#10B981"
+        android:pathData="M136,324 M126,324 A10,10 0 1,0 146,324 A10,10 0 1,0 126,324 Z" />
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M136,324 M132,324 A4,4 0 1,0 140,324 A4,4 0 1,0 132,324 Z" />
+
+    <path
+        android:fillColor="#818CF8"
+        android:pathData="M256,120 M248,120 A8,8 0 1,0 264,120 A8,8 0 1,0 248,120 Z" />
+
+    <path
+        android:fillColor="#06B6D4"
+        android:pathData="M256,392 M248,392 A8,8 0 1,0 264,392 A8,8 0 1,0 248,392 Z" />
+
+</vector>
