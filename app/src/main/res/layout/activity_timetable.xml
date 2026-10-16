@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F8FAFC"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <!-- Top Bar -->
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp">
+
+        <TextView
+            android:id="@+id/btnBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:padding="8dp"
+            android:text="← Back"
+            android:textColor="#2563EB"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/tvTimetableTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="Timetable: TY BCA (Sem-V)"
+            android:textColor="#0F172A"
+            android:textSize="17sp"
+            android:textStyle="bold" />
+    </RelativeLayout>
+
+    <!-- Class Selector Dropdown Header (Hidden for Students, Visible for Faculty/Admin) -->
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/cardClassSelector"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="12dp"
+        app:cardBackgroundColor="#0F172A"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="3dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:padding="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Select Class: "
+                android:textColor="#38BDF8"
+                android:textSize="14sp"
+                android:textStyle="bold" />
+
+            <Spinner
+                android:id="@+id/spinnerTimetableClass"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:backgroundTint="#FFFFFF" />
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- Timetable Image-Exact Horizontal Scrollable Grid -->
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:scrollbars="horizontal">
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#1E293B"
+                    android:padding="2dp">
+
+                    <!-- Header Row -->
+                    <TableRow android:background="#0F172A">
+                        <TextView android:padding="10dp" android:text="Time" android:textColor="#FFFFFF" android:textStyle="bold" />
+                        <TextView android:padding="10dp" android:text="Monday" android:textColor="#FFFFFF" android:textStyle="bold" />
+                        <TextView android:padding="10dp" android:text="Tuesday" android:textColor="#FFFFFF" android:textStyle="bold" />
+                        <TextView android:padding="10dp" android:text="Wednesday" android:textColor="#FFFFFF" android:textStyle="bold" />
+                        <TextView android:padding="10dp" android:text="Thursday" android:textColor="#FFFFFF" android:textStyle="bold" />
+                        <TextView android:padding="10dp" android:text="Friday" android:textColor="#FFFFFF" android:textStyle="bold" />
+                        <TextView android:padding="10dp" android:text="Saturday" android:textColor="#FFFFFF" android:textStyle="bold" />
+                    </TableRow>
+
+                    <!-- Slot 1 -->
+                    <TableRow android:background="#FFFFFF">
+                        <TextView android:padding="10dp" android:text="9.00-9.50" android:textColor="#0F172A" android:textStyle="bold" />
+                        <TextView android:padding="10dp" android:text="MJE-301-ECC\nCloud computing" android:textColor="#2563EB" />
+                        <TextView android:padding="10dp" android:text="MJE-301-ECC\nCloud computing" android:textColor="#2563EB" />
+                        <TextView android:padding="10dp" android:text="MJ-302-UIX\nUI-UX Design" android:textColor="#2563EB" />
+                        <TextView android:padding="10dp" android:text="MN-301\nSE" android:textColor="#2563EB" />
+                        <TextView android:padding="10dp" android:text="MN-301\nSE" android:textColor="#2563EB" />
+                        <TextView android:padding="10dp" android:text="MN-301\nSE" android:textColor="#2563EB" />
+                    </TableRow>
+
+                    <!-- Slot 2 -->
+                    <TableRow android:background="#F8FAFC">
+                        <TextView android:padding="10dp" android:text="9.50-10.40" android:textColor="#0F172A" android:textStyle="bold" />
+                        <TextView android:padding="10dp" android:text="VSC-301-ES\nERP" android:textColor="#D97706" />
+                        <TextView android:padding="10dp" android:text="VSC-301-ES\nERP" android:textColor="#D97706" />
+                        <TextView android:padding="10dp" android:text="VSC-301-ES\nERP" android:textColor="#D97706" />
+                        <TextView android:padding="10dp" android:text="MJ-303-JPP\nPractical Java" android:textColor="#059669" />
+                        <TextView android:padding="10dp" android:text="MJ-304-Lab\nPractical UI-UX" android:textColor="#059669" />
+                        <TextView android:padding="10dp" android:text="MJE-301-EC\nCloud Computing" android:textColor="#2563EB" />
+                    </TableRow>
+
+                    <!-- Slot 3 -->
+                    <TableRow android:background="#FFFFFF">
+                        <TextView android:padding="10dp" android:text="10.40-11.30" android:textColor="#0F172A" android:textStyle="bold" />
+                        <TextView android:padding="10dp" android:text="MJ-301-JP\nJava" android:textColor="#7C3AED" />
+                        <TextView android:padding="10dp" android:text="MJ-301-JP\nJava" android:textColor="#7C3AED" />
+                        <TextView android:padding="10dp" android:text="MJ-301-JP\nJava" android:textColor="#7C3AED" />
+                        <TextView android:padding="10dp" android:text="--" android:textColor="#64748B" />
+                        <TextView android:padding="10dp" android:text="--" android:textColor="#64748B" />
+                        <TextView android:padding="10dp" android:text="FP-301-MM\nProject" android:textColor="#0284C7" />
+                    </TableRow>
+
+                    <!-- Lunch Break Row -->
+                    <TableRow android:background="#FEF3C7">
+                        <TextView
+                            android:gravity="center"
+                            android:padding="10dp"
+                            android:text="** Lunch Break ** time 11.30 to 12.00"
+                            android:textColor="#92400E"
+                            android:textStyle="bold" />
+                    </TableRow>
+
+                    <!-- Slot 4 -->
+                    <TableRow android:background="#FFFFFF">
+                        <TextView android:padding="10dp" android:text="12.00-12.50" android:textColor="#0F172A" android:textStyle="bold" />
+                        <TextView android:padding="10dp" android:text="MJ-302-UIX\nUI-UX Design" android:textColor="#2563EB" />
+                        <TextView android:padding="10dp" android:text="MJ-302-UIX\nUI-UX Design" android:textColor="#2563EB" />
+                        <TextView android:padding="10dp" android:text="FP-301-MM\nProject" android:textColor="#0284C7" />
+                        <TextView android:padding="10dp" android:text="FP-301-MM\nProject" android:textColor="#0284C7" />
+                        <TextView android:padding="10dp" android:text="--" android:textColor="#64748B" />
+                        <TextView android:padding="10dp" android:text="--" android:textColor="#64748B" />
+                    </TableRow>
+
+                </TableLayout>
+            </HorizontalScrollView>
+
+            <!-- Subject & Faculty Mapping Table Card (Matching Bottom Table from Image) -->
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:cardBackgroundColor="#FFFFFF"
+                app:cardCornerRadius="14dp"
+                app:cardElevation="3dp"
+                app:strokeColor="#E2E8F0"
+                app:strokeWidth="1dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="16dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="12dp"
+                        android:text="📚 Subject Code &amp; Faculty Mapping Table"
+                        android:textColor="#0F172A"
+                        android:textSize="15sp"
+                        android:textStyle="bold" />
+
+                    <!-- Mapping Table -->
+                    <TableLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:stretchColumns="*">
+
+                        <TableRow android:background="#F1F5F9">
+                            <TextView android:padding="6dp" android:text="Sr." android:textStyle="bold" />
+                            <TextView android:padding="6dp" android:text="Code" android:textStyle="bold" />
+                            <TextView android:padding="6dp" android:text="Subject Name" android:textStyle="bold" />
+                            <TextView android:padding="6dp" android:text="Faculty Name" android:textStyle="bold" />
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView android:padding="6dp" android:text="1" />
+                            <TextView android:padding="6dp" android:text="MJE-301" />
+                            <TextView android:padding="6dp" android:text="Essential of Cloud Computing" />
+                            <TextView android:padding="6dp" android:text="Prof-Nikam R.B." android:textColor="#2563EB" android:textStyle="bold" />
+                        </TableRow>
+
+                        <TableRow android:background="#F8FAFC">
+                            <TextView android:padding="6dp" android:text="2" />
+                            <TextView android:padding="6dp" android:text="MN-301" />
+                            <TextView android:padding="6dp" android:text="Software Engineering" />
+                            <TextView android:padding="6dp" android:text="Prof-Dhawale S.S" android:textColor="#2563EB" android:textStyle="bold" />
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView android:padding="6dp" android:text="3" />
+                            <TextView android:padding="6dp" android:text="VSC-301" />
+                            <TextView android:padding="6dp" android:text="Entrepreneurship Essentials" />
+                            <TextView android:padding="6dp" android:text="Prof-Pawar A.V" android:textColor="#2563EB" android:textStyle="bold" />
+                        </TableRow>
+
+                        <TableRow android:background="#F8FAFC">
+                            <TextView android:padding="6dp" android:text="4" />
+                            <TextView android:padding="6dp" android:text="FP-301" />
+                            <TextView android:padding="6dp" android:text="Project based in Major Mandatory" />
+                            <TextView android:padding="6dp" android:text="Prof-Pansare M.B" android:textColor="#2563EB" android:textStyle="bold" />
+                        </TableRow>
+
+                        <TableRow>
+                            <TextView android:padding="6dp" android:text="5" />
+                            <TextView android:padding="6dp" android:text="MJ-301" />
+                            <TextView android:padding="6dp" android:text="Java Programming" />
+                            <TextView android:padding="6dp" android:text="Prof-Dhole S.B" android:textColor="#2563EB" android:textStyle="bold" />
+                        </TableRow>
+
+                        <TableRow android:background="#F8FAFC">
+                            <TextView android:padding="6dp" android:text="6" />
+                            <TextView android:padding="6dp" android:text="MJ-302" />
+                            <TextView android:padding="6dp" android:text="UI-UX Design" />
+                            <TextView android:padding="6dp" android:text="Prof-Baviskar R.R" android:textColor="#2563EB" android:textStyle="bold" />
+                        </TableRow>
+
+                    </TableLayout>
+
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
