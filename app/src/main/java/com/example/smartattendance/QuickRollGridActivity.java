@@ -15,9 +15,13 @@ import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
+import java.util.Random;
 
 public class QuickRollGridActivity extends AppCompatActivity {
 
@@ -86,9 +90,21 @@ public class QuickRollGridActivity extends AppCompatActivity {
                     Toast.makeText(this, "No students in grid to submit!", Toast.LENGTH_SHORT).show();
                     return;
                 }
+
+                int presentCount = 0;
                 for (StudentModel student : studentList) {
+                    if (student.isPresent()) presentCount++;
                     AttendanceData.markAttendance(student.getName(), selectedSubject, student.isPresent());
                 }
+
+                SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
+                String todayStr = sdf.format(new Date());
+
+                Random random = new Random();
+                String attendanceId = String.valueOf(2600 + random.nextInt(900));
+
+                CloudRepository.saveAttendanceLog(attendanceId, selectedClass, selectedSubject, todayStr, "Grid Lecture", "Regular", presentCount, studentList.size());
+
                 Toast.makeText(this, "Grid Attendance submitted for " + selectedClass + " (" + selectedSubject + ")!", Toast.LENGTH_LONG).show();
                 finish();
             });

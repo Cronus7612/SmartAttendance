@@ -1,421 +1,748 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#F8FAFC"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
-    <!-- Header Section with Telegram Avatar -->
-    <RelativeLayout
+    <!-- Main Content View -->
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp">
+        android:layout_height="match_parent"
+        android:background="#FAF7F2"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_centerVertical="true"
-            android:layout_toStartOf="@id/btnFacultyAvatar"
-            android:orientation="vertical">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/faculty_dashboard_title"
-                android:textColor="#0F172A"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tvFacultyInfo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="2dp"
-                android:textColor="#2563EB"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                tools:text="👨‍🏫 Prof. S. R. Patil | ID: #20481923" />
-        </LinearLayout>
-
-        <!-- Telegram-Style Circular Profile Avatar -->
-        <com.google.android.material.card.MaterialCardView
-            android:id="@+id/btnFacultyAvatar"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
-            android:layout_alignParentEnd="true"
-            android:layout_centerVertical="true"
-            app:cardBackgroundColor="#2563EB"
-            app:cardCornerRadius="20dp"
-            app:cardElevation="2dp"
-            app:strokeColor="#FFFFFF"
-            app:strokeWidth="1dp">
-
-            <TextView
-                android:id="@+id/tvFacultyAvatarInitials"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="👤"
-                android:textColor="#FFFFFF"
-                android:textSize="18sp"
-                android:textStyle="bold" />
-        </com.google.android.material.card.MaterialCardView>
-    </RelativeLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
-
-        <LinearLayout
+        <!-- Header Section with Telegram Avatar & Hamburger -->
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:padding="16dp">
 
-            <!-- Today's Lecture Schedule Bar -->
-            <com.google.android.material.card.MaterialCardView
-                android:layout_width="match_parent"
+            <LinearLayout
+                android:id="@+id/btnMenuDrawer"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardBackgroundColor="#0F172A"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="3dp">
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="4dp"
+                    android:text="≡"
+                    android:textColor="#0F172A"
+                    android:textSize="26sp"
+                    android:textStyle="bold" />
+
+                <!-- Telegram-Style Circular Profile Avatar -->
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/btnFacultyAvatar"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="8dp"
+                    app:cardBackgroundColor="#2563EB"
+                    app:cardCornerRadius="20dp"
+                    app:cardElevation="2dp">
+
+                    <TextView
+                        android:id="@+id/tvFacultyAvatarInitials"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="S"
+                        android:textColor="#FFFFFF"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+                </com.google.android.material.card.MaterialCardView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_toEndOf="@id/btnMenuDrawer"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="14dp">
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="@string/todays_schedule_title"
-                        android:textColor="#38BDF8"
-                        android:textSize="14sp"
+                        android:text="SmartAttendance"
+                        android:textColor="#0F172A"
+                        android:textSize="20sp"
                         android:textStyle="bold" />
 
-                    <HorizontalScrollView
-                        android:layout_width="match_parent"
+                    <!-- Pill Badge: Faculty Portal -->
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:scrollbars="none">
-
-                        <LinearLayout
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal">
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnScheduleLecture1"
-                                android:layout_width="wrap_content"
-                                android:layout_height="40dp"
-                                android:layout_marginEnd="6dp"
-                                android:backgroundTint="#2563EB"
-                                android:text="09:00 AM - Core Java (TY BCA)"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="8dp" />
-
-                            <com.google.android.material.button.MaterialButton
-                                android:id="@+id/btnScheduleLecture2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="40dp"
-                                android:backgroundTint="#7C3AED"
-                                android:text="11:15 AM - Cloud Computing (TY BCA)"
-                                android:textAllCaps="false"
-                                android:textSize="12sp"
-                                app:cornerRadius="8dp" />
-                        </LinearLayout>
-                    </HorizontalScrollView>
-
+                        android:layout_marginStart="8dp"
+                        android:background="#DBEAFE"
+                        android:paddingHorizontal="8dp"
+                        android:paddingVertical="3dp"
+                        android:text="Faculty Portal"
+                        android:textColor="#1D4ED8"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
-            </com.google.android.material.card.MaterialCardView>
 
-            <!-- Option Hub Grid (6 Cards) -->
-            <GridLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                android:columnCount="2"
-                android:rowCount="3">
-
-                <!-- 1. Take Attendance -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardOptionMarkAttendance"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="4dp"
-                    app:cardBackgroundColor="#2563EB"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="3dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/option_take_attendance"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- 2. Post Notice -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardOptionPostNotice"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="4dp"
-                    app:cardBackgroundColor="#D97706"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="3dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/option_post_notice"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- 3. Quick Roll Grid -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardOptionQuickGrid"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="4dp"
-                    app:cardBackgroundColor="#7C3AED"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="3dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/option_quick_grid"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- 4. Adjust Student Roster -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardOptionAdjustRoster"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="4dp"
-                    app:cardBackgroundColor="#0284C7"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="3dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/option_adjust_roster"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- 5. Export Report -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardOptionExportReport"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="4dp"
-                    app:cardBackgroundColor="#0F172A"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="3dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/export_report_btn"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- 6. Lecture History -->
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/cardOptionLectureHistory"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_rowWeight="1"
-                    android:layout_columnWeight="1"
-                    android:layout_margin="4dp"
-                    app:cardBackgroundColor="#059669"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="3dp">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/option_lecture_history"
-                            android:textColor="#FFFFFF"
-                            android:textSize="13sp"
-                            android:textStyle="bold" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-            </GridLayout>
-
-            <!-- Expanded Attendance Marking Panel (GONE by default) -->
-            <LinearLayout
-                android:id="@+id/layoutAttendancePanel"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <!-- Date, Class & Subject Selector Card -->
-                <com.google.android.material.card.MaterialCardView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="12dp"
-                    app:cardBackgroundColor="#FFFFFF"
-                    app:cardCornerRadius="12dp"
-                    app:cardElevation="3dp"
-                    app:strokeColor="#E2E8F0"
-                    app:strokeWidth="1dp">
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical"
-                        android:padding="12dp">
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnSelectDate"
-                            android:layout_width="match_parent"
-                            android:layout_height="44dp"
-                            android:layout_marginBottom="8dp"
-                            android:backgroundTint="#0F172A"
-                            android:textAllCaps="false"
-                            android:textSize="13sp"
-                            app:cornerRadius="8dp"
-                            tools:text="📅 Select Date: 08 Feb 2025" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Select Class:"
-                            android:textColor="#64748B"
-                            android:textSize="12sp" />
-
-                        <Spinner
-                            android:id="@+id/spinnerClass"
-                            android:layout_width="match_parent"
-                            android:layout_height="44dp" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="6dp"
-                            android:text="Select Subject:"
-                            android:textColor="#64748B"
-                            android:textSize="12sp" />
-
-                        <Spinner
-                            android:id="@+id/spinnerSubject"
-                            android:layout_width="match_parent"
-                            android:layout_height="44dp" />
-
-                        <!-- Embedded Quick Grid Button -->
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnEmbeddedQuickGrid"
-                            android:layout_width="match_parent"
-                            android:layout_height="42dp"
-                            android:layout_marginTop="8dp"
-                            android:backgroundTint="#7C3AED"
-                            android:text="⚡ Open Quick Roll Grid for this Class"
-                            android:textAllCaps="false"
-                            android:textSize="12sp"
-                            app:cornerRadius="8dp" />
-                    </LinearLayout>
-                </com.google.android.material.card.MaterialCardView>
-
-                <!-- Student Count Title -->
                 <TextView
-                    android:id="@+id/tvStudentCount"
+                    android:id="@+id/tvFacultyInfo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="6dp"
-                    android:text="Student Roster"
-                    android:textColor="#334155"
-                    android:textSize="14sp"
+                    android:layout_marginTop="2dp"
+                    android:textColor="#64748B"
+                    android:textSize="13sp"
+                    tools:text="Prof. S. R. Patil | ID: #20481923" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <!-- Notification Bell -->
+                <TextView
+                    android:id="@+id/btnNotificationBell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:contentDescription="@string/notification_bell_desc"
+                    android:padding="6dp"
+                    android:text="🔔"
+                    android:textSize="22sp" />
+            </LinearLayout>
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:paddingHorizontal="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <!-- Quick Info Section Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Quick Info"
+                    android:textColor="#0F172A"
+                    android:textSize="20sp"
                     android:textStyle="bold" />
 
-                <!-- Clean RecyclerView List (No Delete Icons) -->
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvStudents"
+                <!-- Quick Info Carousel Scroll -->
+                <HorizontalScrollView
                     android:layout_width="match_parent"
-                    android:layout_height="280dp"
-                    android:layout_marginBottom="10dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:scrollbars="none">
 
-                <!-- Submit Attendance Button -->
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/btnSubmitAttendance"
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <!-- Main Conducted Classes Progress Ring Card -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:layout_width="280dp"
+                            android:layout_height="140dp"
+                            android:layout_marginEnd="12dp"
+                            app:cardBackgroundColor="#FFFFFF"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="3dp">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:id="@+id/tvProgressTitle"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Classes Conducted Today: 0"
+                                    android:textColor="#0F172A"
+                                    android:textSize="15sp"
+                                    android:textStyle="bold" />
+
+                                <RelativeLayout
+                                    android:id="@+id/ringLayout"
+                                    android:layout_width="70dp"
+                                    android:layout_height="70dp"
+                                    android:layout_below="@id/tvProgressTitle"
+                                    android:layout_marginTop="10dp">
+
+                                    <ProgressBar
+                                        android:id="@+id/pbOverallRing"
+                                        style="?android:attr/progressBarStyleHorizontal"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:indeterminate="false"
+                                        android:max="100"
+                                        android:progress="0"
+                                        android:progressDrawable="@android:drawable/progress_horizontal" />
+
+                                    <TextView
+                                        android:id="@+id/tvOverallPercentage"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_centerInParent="true"
+                                        android:textColor="#0F172A"
+                                        android:textSize="15sp"
+                                        android:textStyle="bold"
+                                        tools:text="0%" />
+                                </RelativeLayout>
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_below="@id/tvProgressTitle"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="18dp"
+                                    android:layout_toEndOf="@id/ringLayout"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:text="On Schedule!"
+                                        android:textColor="#0F172A"
+                                        android:textSize="16sp"
+                                        android:textStyle="bold" />
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_marginTop="2dp"
+                                        android:text="Looking Good!"
+                                        android:textColor="#64748B"
+                                        android:textSize="13sp" />
+                                </LinearLayout>
+                            </RelativeLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                        <!-- Secondary Pending Leave Applications Card (Redirects to Leave Approvals) -->
+                        <com.google.android.material.card.MaterialCardView
+                            android:id="@+id/cardPendingLeaveCard"
+                            android:layout_width="220dp"
+                            android:layout_height="140dp"
+                            app:cardBackgroundColor="#FFFFFF"
+                            app:cardCornerRadius="20dp"
+                            app:cardElevation="3dp">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:orientation="vertical"
+                                android:padding="16dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="📩 Student Leave Requests"
+                                    android:textColor="#64748B"
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tvPendingLeaveCountText"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:text="0 Pending Requests"
+                                    android:textColor="#D97706"
+                                    android:textSize="16sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="4dp"
+                                    android:text="Tap to Approve / Reject →"
+                                    android:textColor="#2563EB"
+                                    android:textSize="12sp"
+                                    android:textStyle="bold" />
+                            </LinearLayout>
+                        </com.google.android.material.card.MaterialCardView>
+
+                    </LinearLayout>
+                </HorizontalScrollView>
+
+                <!-- Navigation Section Title -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="12dp"
+                    android:text="Navigation"
+                    android:textColor="#0F172A"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <!-- Navigation Grid (Photo-Exact Matching Faculty Image) -->
+                <GridLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:layout_marginBottom="16dp"
-                    android:backgroundTint="#16A34A"
-                    android:text="Submit Attendance"
-                    android:textAllCaps="false"
-                    android:textSize="15sp"
-                    app:cornerRadius="10dp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:columnCount="2"
+                    android:rowCount="4">
 
+                    <!-- 1. Take Attendance (Soft Blue Card) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardOptionMarkAttendance"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="6dp"
+                        app:cardBackgroundColor="#2563EB"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="3dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="📋"
+                                android:textSize="26sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Take Attendance"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 2. Post Faculty Notice (Orange Card) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardOptionPostNotice"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="6dp"
+                        app:cardBackgroundColor="#F97316"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="3dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="📢"
+                                android:textSize="26sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Post Faculty Notice"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 3. Leave Approvals (Emerald Green Card) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardOptionManageLeaves"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="6dp"
+                        app:cardBackgroundColor="#059669"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="3dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="📝"
+                                android:textSize="26sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Leave Approvals"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 4. Adjust Student Roster (Sky Blue Card) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardOptionAdjustRoster"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="6dp"
+                        app:cardBackgroundColor="#0284C7"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="3dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="👥"
+                                android:textSize="26sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Adjust Student Roster"
+                                android:textColor="#FFFFFF"
+                                android:textSize="14sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 5. Export Attendance Report (Dark Navy Card) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardOptionExportReport"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="6dp"
+                        app:cardBackgroundColor="#0F172A"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="3dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="📄"
+                                android:textSize="26sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:gravity="center"
+                                android:text="Export Attendance Report"
+                                android:textColor="#FFFFFF"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 6. Assignments (Rich Purple Card) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardOptionAssignment"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="6dp"
+                        app:cardBackgroundColor="#7C3AED"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="3dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="📚"
+                                android:textSize="26sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:text="Assignments"
+                                android:textColor="#FFFFFF"
+                                android:textSize="15sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <!-- 7. Upload Study Notes / Resources (Slate Card) -->
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/cardOptionUploadNotes"
+                        android:layout_width="0dp"
+                        android:layout_height="100dp"
+                        android:layout_rowWeight="1"
+                        android:layout_columnWeight="1"
+                        android:layout_margin="6dp"
+                        app:cardBackgroundColor="#475569"
+                        app:cardCornerRadius="18dp"
+                        app:cardElevation="3dp">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:padding="12dp">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="📤"
+                                android:textSize="26sp" />
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="4dp"
+                                android:gravity="center"
+                                android:text="Upload Study Notes"
+                                android:textColor="#FFFFFF"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+                        </LinearLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                </GridLayout>
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Photo-Exact Bottom Navigation Bar matching image -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="64dp"
+            android:background="#F3EFEA"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:paddingHorizontal="16dp">
+
+            <LinearLayout
+                android:id="@+id/btnBottomHome"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="🏠" android:textSize="20sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Home" android:textColor="#0F172A" android:textSize="11sp" android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnBottomSchedule"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="📅" android:textSize="20sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Schedule" android:textColor="#64748B" android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnBottomRoster"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="👥" android:textSize="20sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Roster" android:textColor="#64748B" android:textSize="11sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/btnBottomProfile"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="👤" android:textSize="20sp" />
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Profile" android:textColor="#64748B" android:textSize="11sp" />
             </LinearLayout>
 
         </LinearLayout>
-    </ScrollView>
 
-</LinearLayout>
+    </LinearLayout>
+
+    <!-- Telegram-Style Navigation Drawer -->
+    <LinearLayout
+        android:id="@+id/navDrawerTeacher"
+        android:layout_width="280dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:background="#1E293B"
+        android:clickable="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+        <!-- Telegram Drawer Header -->
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#0F172A"
+            android:padding="20dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:orientation="vertical">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:layout_width="54dp"
+                    android:layout_height="54dp"
+                    android:layout_marginBottom="12dp"
+                    app:cardBackgroundColor="#2563EB"
+                    app:cardCornerRadius="27dp"
+                    app:cardElevation="3dp"
+                    app:strokeColor="#FFFFFF"
+                    app:strokeWidth="2dp">
+
+                    <TextView
+                        android:id="@+id/tvDrawerFacultyInitials"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="S"
+                        android:textColor="#FFFFFF"
+                        android:textSize="22sp"
+                        android:textStyle="bold" />
+                </com.google.android.material.card.MaterialCardView>
+
+                <TextView
+                    android:id="@+id/tvDrawerFacultyName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold"
+                    tools:text="Prof. S. R. Patil" />
+
+                <TextView
+                    android:id="@+id/tvDrawerFacultyDetails"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:textColor="#38BDF8"
+                    android:textSize="13sp"
+                    tools:text="Faculty ID: #20481923" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/btnThemeToggle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:padding="8dp"
+                android:text="☀️"
+                android:textSize="24sp" />
+        </RelativeLayout>
+
+        <!-- Telegram Drawer Options -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:padding="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvDrawerFacultyProfile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp"
+                    android:text="@string/drawer_my_profile"
+                    android:textColor="#F1F5F9"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDrawerFacultyLeaves"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp"
+                    android:text="📝 Leave Approvals"
+                    android:textColor="#F1F5F9"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDrawerFacultyNotice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp"
+                    android:text="@string/drawer_notices"
+                    android:textColor="#F1F5F9"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvDrawerFacultySettings"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="14dp"
+                    android:text="@string/drawer_settings"
+                    android:textColor="#F1F5F9"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <!-- Logout Action -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#334155" />
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnDrawerLogout"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_margin="16dp"
+            android:backgroundTint="#EF4444"
+            android:text="@string/drawer_logout"
+            android:textAllCaps="false"
+            android:textSize="14sp"
+            app:cornerRadius="10dp" />
+
+    </LinearLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

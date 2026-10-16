@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Objects;
 
+@SuppressWarnings("unused")
 public class CloudRepository {
 
     private static final DatabaseReference rootRef = FirebaseDatabase.getInstance().getReference();
@@ -18,8 +20,22 @@ public class CloudRepository {
     public static final DatabaseReference teacherRef = rootRef.child("teachers");
     public static final DatabaseReference studentRef = rootRef.child("students");
     public static final DatabaseReference attendanceRef = rootRef.child("attendance");
+    public static final DatabaseReference attendanceLogsRef = rootRef.child("attendance_logs");
     public static final DatabaseReference announcementsRef = rootRef.child("announcements");
     public static final DatabaseReference leaveRef = rootRef.child("leave_applications");
+    public static final DatabaseReference assignmentsRef = rootRef.child("assignments");
+    public static final DatabaseReference resourcesRef = rootRef.child("study_resources");
+
+    // Safe String Extractor from Firebase DataSnapshot preventing DatabaseException on numeric types
+    public static String getSafeString(DataSnapshot snapshot, String fieldName) {
+        if (snapshot != null && snapshot.hasChild(fieldName)) {
+            Object val = snapshot.child(fieldName).getValue();
+            if (val != null) {
+                return ("" + val).trim();
+            }
+        }
+        return "";
+    }
 
     // Title Case Helper: "amit shah" -> "Amit Shah"
     public static String formatToTitleCase(String input) {
@@ -47,6 +63,24 @@ public class CloudRepository {
         return sdf.format(new Date(timestamp));
     }
 
+    public static void saveAttendanceLog(String attendanceId, String className, String subject, String date, String lectureNumber, String lectureType, int presentCount, int totalCount) {
+        String key = attendanceLogsRef.push().getKey();
+        if (key != null) {
+            Map<String, Object> logMap = new HashMap<>();
+            logMap.put("attendanceId", attendanceId);
+            logMap.put("className", className);
+            logMap.put("subject", subject);
+            logMap.put("date", date);
+            logMap.put("lectureNumber", lectureNumber);
+            logMap.put("lectureType", lectureType);
+            logMap.put("presentCount", presentCount);
+            logMap.put("totalCount", totalCount);
+            logMap.put("status", "Saved 🟢");
+            logMap.put("timestamp", System.currentTimeMillis());
+            attendanceLogsRef.child(key).setValue(logMap);
+        }
+    }
+
     public static void postAnnouncement(String title, String message, String category, String postedBy) {
         String id = announcementsRef.push().getKey();
         if (id != null) {
@@ -57,6 +91,37 @@ public class CloudRepository {
 
     public static void clearAllAnnouncements() {
         announcementsRef.removeValue();
+    }
+
+    public static void postAssignment(String title, String description, String subject, String className, String dueDate, String postedBy) {
+        String id = assignmentsRef.push().getKey();
+        if (id != null) {
+            AssignmentModel model = new AssignmentModel(id, title, description, subject, className, dueDate, postedBy, System.currentTimeMillis());
+            assignmentsRef.child(id).setValue(model);
+        }
+    }
+
+    public static void clearAllAssignments() {
+        assignmentsRef.removeValue();
+    }
+
+    public static void postStudyResource(String title, String subject, String className, String resourceUrl, String postedBy) {
+        String id = resourcesRef.push().getKey();
+        if (id != null) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("id", id);
+            map.put("title", title);
+            map.put("subject", subject);
+            map.put("className", className);
+            map.put("resourceUrl", resourceUrl);
+            map.put("postedBy", postedBy);
+            map.put("timestamp", System.currentTimeMillis());
+            resourcesRef.child(id).setValue(map);
+        }
+    }
+
+    public static void clearAllStudyResources() {
+        resourcesRef.removeValue();
     }
 
     public static void submitLeaveApplication(String applicantName, String applicantRollOrId, String leaveType, String reason) {
@@ -72,8 +137,10 @@ public class CloudRepository {
         leaveRef.child(leaveId).child("status").setValue(newStatus);
         leaveRef.child(leaveId).child("actionTimestamp").setValue(currentActionTime);
 
-        String badge = "APPROVED 🟢";
-        if ("REJECTED".equalsIgnoreCase(newStatus)) badge = "REJECTED 🔴";
+        String badge = "REJECTED 🔴";
+        if ("APPROVED".equalsIgnoreCase(newStatus)) {
+            badge = "APPROVED 🟢";
+        }
 
         String title = "📝 Leave Application " + newStatus;
         String msg = "Leave request for " + applicantName + " (" + reason + ") was " + badge + " by HOD/Admin.";
@@ -88,7 +155,7 @@ public class CloudRepository {
     public static void initializeDefaultsIfEmpty() {
         adminRef.child("10842931").get().addOnSuccessListener(snapshot -> {
             if (!snapshot.exists()) {
-                saveAdmin("10842931", "Siddharth Bhambare", "siddharthbhambare");
+                saveAdmin("10842931", "Siddharth Bhambare", "siddharthbhambare", "siddharth@smartattendance.edu", "9876543210");
             }
         });
 
@@ -102,8 +169,8 @@ public class CloudRepository {
             boolean needsReseed = !snapshot.exists() || snapshot.getChildrenCount() == 0;
             if (snapshot.exists()) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String sId = ds.child("studentId").getValue(String.class);
-                    if (sId == null || sId.length() != 8) {
+                    String sId = getSafeString(ds, "studentId");
+                    if (sId.length() != 8) {
                         needsReseed = true;
                         break;
                     }
@@ -121,19 +188,22 @@ public class CloudRepository {
         // TY BCA
         String[] tyBca = {"Aditya Thete", "Tejas Rajwade", "Gaurav Pawar", "Atharv Gaikwad", "Komal Jagtap", "Bhakti Samudre", "Kajal Jadhav", "Vaishnavi Jadhav"};
         for (String s : tyBca) {
-            initialList.add(new TempStudent(s, s.toLowerCase().replaceAll("\\s+", ""), "TY BCA"));
+            String cleanName = s.toLowerCase().replaceAll("\\s+", "");
+            initialList.add(new TempStudent(s, cleanName, "TY BCA", cleanName + "@smartattendance.edu", "98" + (Math.abs(s.hashCode()) % 100000000)));
         }
 
         // SY BCA
         String[] syBca = {"Abhishek More", "Aniket Shinde", "Chetan Patil", "Deepak Thorat", "Harshada Deshmukh", "Jayesh Kadam", "Manish Wagh", "Mayuri Gite", "Nilesh Chavan", "Pooja Bhamre", "Prasad Joshi", "Rohit Sonawane"};
         for (String s : syBca) {
-            initialList.add(new TempStudent(s, s.toLowerCase().replaceAll("\\s+", ""), "SY BCA"));
+            String cleanName = s.toLowerCase().replaceAll("\\s+", "");
+            initialList.add(new TempStudent(s, cleanName, "SY BCA", cleanName + "@smartattendance.edu", "98" + (Math.abs(s.hashCode()) % 100000000)));
         }
 
         // FY BCA
         String[] fyBca = {"Akash Pawar", "Bhavana Kale", "Dhananjay Jagtap", "Ishwar Ghadge", "Kunal Desale", "Madhuri Kulkarni", "Pratiksha Gaikwad", "Rakesh Shinde", "Sagar Patil", "Snehal Jadhav", "Tushar More", "Yogesh Thorat"};
         for (String s : fyBca) {
-            initialList.add(new TempStudent(s, s.toLowerCase().replaceAll("\\s+", ""), "FY BCA"));
+            String cleanName = s.toLowerCase().replaceAll("\\s+", "");
+            initialList.add(new TempStudent(s, cleanName, "FY BCA", cleanName + "@smartattendance.edu", "98" + (Math.abs(s.hashCode()) % 100000000)));
         }
 
         // Other classes default rosters
@@ -144,12 +214,15 @@ public class CloudRepository {
 
         for (String cName : otherClasses) {
             int baseSeed = Math.abs(cName.hashCode());
-            for (int i = 1; i <= 10; i++) {
+            int i = 1;
+            while (i <= 10) {
                 int seedIdx = (baseSeed + (i * 7));
                 String lName = lastNames[Math.abs((seedIdx + i) % lastNames.length)];
                 String fName = (i % 2 == 0) ? girlFirst[Math.abs((seedIdx + 3) % girlFirst.length)] : boyFirst[Math.abs((seedIdx + 5) % boyFirst.length)];
                 String full = fName + " " + lName;
-                initialList.add(new TempStudent(full, full.toLowerCase().replaceAll("\\s+", ""), cName));
+                String clean = full.toLowerCase().replaceAll("\\s+", "");
+                initialList.add(new TempStudent(full, clean, cName, clean + "@smartattendance.edu", "98" + Math.abs((seedIdx * 12345) % 100000000)));
+                i++;
             }
         }
 
@@ -173,6 +246,8 @@ public class CloudRepository {
                 sMap.put("password", cList.get(i).password);
                 sMap.put("className", entry.getKey());
                 sMap.put("studentId", sId);
+                sMap.put("email", cList.get(i).email);
+                sMap.put("phone", cList.get(i).phone);
                 dbMap.put(String.valueOf(globalCounter++), sMap);
             }
         }
@@ -181,49 +256,81 @@ public class CloudRepository {
     }
 
     private static void uploadAll27Teachers() {
-        saveTeacher("20481923", "Prof. S. R. Patil", "patil");
-        saveTeacher("59182341", "Prof. V. M. Shinde", "shinde");
-        saveTeacher("83920145", "Prof. A. K. Deshmukh", "deshmukh");
-        saveTeacher("11245890", "Prof. R. B. More", "more");
-        saveTeacher("78451296", "Prof. N. S. Kulkarni", "kulkarni");
-        saveTeacher("63214587", "Prof. P. D. Joshi", "joshi");
-        saveTeacher("95123648", "Prof. K. T. Gite", "gite");
-        saveTeacher("45871236", "Prof. M. L. Gaikwad", "gaikwad");
-        saveTeacher("32145698", "Prof. S. P. Kale", "kale");
-        saveTeacher("85214796", "Prof. H. R. Wagh", "wagh");
-        saveTeacher("96325874", "Prof. C. V. Sonawane", "sonawane");
-        saveTeacher("74125896", "Prof. D. S. Thorat", "thorat");
-        saveTeacher("36985214", "Prof. J. K. Ghadge", "ghadge");
-        saveTeacher("15975348", "Prof. B. M. Jadhav", "jadhav");
-        saveTeacher("75395146", "Prof. T. R. Chavan", "chavan");
-        saveTeacher("85296314", "Prof. U. S. Jagtap", "jagtap");
-        saveTeacher("95135748", "Prof. W. P. Bhamre", "bhamre");
-        saveTeacher("35715948", "Prof. Y. K. Pawar", "pawar");
-        saveTeacher("45612378", "Prof. Z. N. Kadam", "kadam");
-        saveTeacher("78945612", "Prof. E. T. Borse", "borse");
-        saveTeacher("12378945", "Prof. F. R. Salunkhe", "salunkhe");
-        saveTeacher("98712345", "Prof. G. H. Mane", "mane");
-        saveTeacher("65498712", "Prof. I. J. Nikam", "nikam");
-        saveTeacher("32165498", "Prof. L. M. Tambe", "tambe");
-        saveTeacher("85274196", "Prof. O. P. Shelar", "shelar");
-        saveTeacher("96385274", "Prof. Q. R. Khairnar", "khairnar");
-        saveTeacher("74185296", "Prof. X. Y. Thete", "thete");
+        String bca = "TY BCA, SY BCA";
+        String bcs = "TY B.Sc (CS), SY B.Sc (CS)";
+        String bba = "TY BBA, SY BBA";
+        String bcom = "TY B.Com, SY B.Com";
+        String bsc = "TY B.Sc, SY B.Sc";
+        String hsc = "12th (HSC), 11th (FYJC)";
+
+        // Image Timetable Mapping Teachers
+        saveTeacher("99102451", "Prof-Nikam R.B.", "nikam", "TY BCA", "Essential of Cloud Computing", "nikam@smartattendance.edu", "9823014589");
+        saveTeacher("99102452", "Prof-Dhawale S.S", "dhawale", "TY BCA", "Software Engineering", "dhawale@smartattendance.edu", "9823014590");
+        saveTeacher("99102453", "Prof-Pawar A.V", "pawar", "TY BCA", "Entrepreneurship Essentials (ERP)", "pawar@smartattendance.edu", "9823014591");
+        saveTeacher("99102454", "Prof-Pansare M.B", "pansare", "TY BCA", "Project based in Major Mandatory", "pansare@smartattendance.edu", "9823014592");
+        saveTeacher("99102455", "Prof-Dhole S.B", "dhole", "TY BCA", "Java Programming", "dhole@smartattendance.edu", "9823014593");
+        saveTeacher("99102456", "Prof-Baviskar R.R", "baviskar", "TY BCA", "User Interface & User Experience Design", "baviskar@smartattendance.edu", "9823014594");
+
+        // General Teachers
+        saveTeacher("20481923", "Prof. S. R. Patil", "patil", bca, "Java, Cloud Computing, UI-UX Design", "patil@smartattendance.edu", "9876543210");
+        saveTeacher("59182341", "Prof. V. M. Shinde", "shinde", bcs, "Advanced Java, OS, Python", "shinde@smartattendance.edu", "9876543211");
+        saveTeacher("83920145", "Prof. A. K. Deshmukh", "deshmukh", bba, "Marketing, HR, Business Law", "deshmukh@smartattendance.edu", "9876543212");
+        saveTeacher("11245890", "Prof. R. B. More", "more", bcom, "Advanced Accounting, Banking", "more@smartattendance.edu", "9876543213");
+        saveTeacher("78451296", "Prof. N. S. Kulkarni", "kulkarni", bsc, "Solid State Physics, Chemistry", "kulkarni@smartattendance.edu", "9876543214");
+        saveTeacher("63214587", "Prof. P. D. Joshi", "joshi", hsc, "Physics, Chemistry, IT", "joshi@smartattendance.edu", "9876543215");
+        saveTeacher("95123648", "Prof. K. T. Gite", "gite", bca, "Data Structures, Web Technology", "gite@smartattendance.edu", "9876543216");
+        saveTeacher("45871236", "Prof. M. L. Gaikwad", "gaikwad", bcs, "Microcontroller, RDBMS", "gaikwad@smartattendance.edu", "9876543217");
+        saveTeacher("32145698", "Prof. S. P. Kale", "kale", bba, "Financial Management, SCM", "kale@smartattendance.edu", "9876543218");
+        saveTeacher("85214796", "Prof. H. R. Wagh", "wagh", bcom, "Corporate Accounting, Economics", "wagh@smartattendance.edu", "9876543219");
+        saveTeacher("96325874", "Prof. C. V. Sonawane", "sonawane", bsc, "Optics, Multivariable Calculus", "sonawane@smartattendance.edu", "9876543220");
+        saveTeacher("74125896", "Prof. D. S. Thorat", "thorat", hsc, "Mathematics, Biology", "thorat@smartattendance.edu", "9876543221");
+        saveTeacher("36985214", "Prof. J. K. Ghadge", "ghadge", bca, "C Programming, Office Automation", "ghadge@smartattendance.edu", "9876543222");
+        saveTeacher("15975348", "Prof. B. M. Jadhav", "jadhav", bcs, "Problem Solving, Electronics", "jadhav@smartattendance.edu", "9876543223");
+        saveTeacher("75395146", "Prof. T. R. Chavan", "chavan", bba, "Principles of Management, Stats", "chavan@smartattendance.edu", "9876543224");
+        saveTeacher("85296314", "Prof. U. S. Jagtap", "jagtap", bcom, "Financial Accounting, Marketing", "jagtap@smartattendance.edu", "9876543225");
+        saveTeacher("95135748", "Prof. W. P. Bhamre", "bhamre", bsc, "Mechanics, Fundamentals of Chemistry", "bhamre@smartattendance.edu", "9876543226");
+        saveTeacher("35715948", "Prof. Y. K. Pawar", "pawar", hsc, "English, Environmental Education", "pawar@smartattendance.edu", "9876543227");
+        saveTeacher("45612378", "Prof. Z. N. Kadam", "kadam", bca, "Entrepreneurship, Cloud", "kadam@smartattendance.edu", "9876543228");
+        saveTeacher("78945612", "Prof. E. T. Borse", "borse", bcs, "Machine Learning, Software Testing", "borse@smartattendance.edu", "9876543229");
+        saveTeacher("12378945", "Prof. F. R. Salunkhe", "salunkhe", bba, "Digital Marketing, Supply Chain", "salunkhe@smartattendance.edu", "9876543230");
     }
 
-    public static void saveAdmin(String id, String name, String password) {
+    public static void saveAdmin(String id, String name, String password, String email, String phone) {
         Map<String, Object> map = new HashMap<>();
         map.put("id", id);
         map.put("name", name);
         map.put("password", password);
+        map.put("email", Objects.requireNonNullElse(email, ""));
+        map.put("phone", Objects.requireNonNullElse(phone, ""));
         adminRef.child(id).setValue(map);
     }
 
-    public static void saveTeacher(String id, String name, String password) {
+    public static void saveAdmin(String id, String name, String password) {
+        saveAdmin(id, name, password, "admin@smartattendance.edu", "9876543210");
+    }
+
+    public static void saveTeacher(String id, String name, String password, String assignedClasses, String assignedSubjects, String email, String phone) {
         Map<String, Object> map = new HashMap<>();
         map.put("id", id);
         map.put("name", name);
         map.put("password", password);
+        map.put("assignedClasses", assignedClasses != null ? assignedClasses : "TY BCA, SY BCA");
+        map.put("assignedSubjects", assignedSubjects != null ? assignedSubjects : "Java, Cloud Computing, UI-UX Design");
+        map.put("email", Objects.requireNonNullElse(email, ""));
+        map.put("phone", Objects.requireNonNullElse(phone, ""));
         teacherRef.child(id).setValue(map);
+    }
+
+    public static void saveTeacher(String id, String name, String password, String assignedClasses, String assignedSubjects) {
+        saveTeacher(id, name, password, assignedClasses, assignedSubjects, "", "");
+    }
+
+    public static void saveTeacher(String id, String name, String password, String assignedClasses) {
+        saveTeacher(id, name, password, assignedClasses, "Java, Cloud Computing, UI-UX Design", "", "");
+    }
+
+    public static void saveTeacher(String id, String name, String password) {
+        saveTeacher(id, name, password, "TY BCA, SY BCA", "Java, Cloud Computing, UI-UX Design", "", "");
     }
 
     public static void removeTeacher(String id) {
@@ -235,15 +342,23 @@ public class CloudRepository {
         String name;
         String password;
         String className;
-        TempStudent(String n, String p, String c) { this.name = n; this.password = p; this.className = c; }
+        String email;
+        String phone;
+
+        TempStudent(String n, String p, String c, String e, String ph) {
+            this.name = n;
+            this.password = p;
+            this.className = c;
+            this.email = e;
+            this.phone = ph;
+        }
+
+        TempStudent(String n, String p, String c) {
+            this(n, p, c, "", "");
+        }
     }
 
-    public static void addStudentAndReorder(String rawName, String password) {
-        addStudentAndReorder(rawName, password, "TY BCA");
-    }
-
-    // Add Student, Sort A-to-Z and Re-assign Roll numbers 1, 2, 3... per class
-    public static void addStudentAndReorder(String rawName, String password, String className) {
+    public static void addStudentAndReorder(String rawName, String password, String className, String email, String phone) {
         String formattedName = formatToTitleCase(rawName);
         String finalPass = (password == null || password.trim().isEmpty())
                 ? formattedName.toLowerCase().replaceAll("\\s+", "")
@@ -253,11 +368,13 @@ public class CloudRepository {
             List<TempStudent> list = new ArrayList<>();
             if (snapshot.exists()) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String n = ds.child("name").getValue(String.class);
-                    String p = ds.child("password").getValue(String.class);
-                    String c = ds.child("className").getValue(String.class);
-                    if (n != null) {
-                        list.add(new TempStudent(n, p != null ? p : n.toLowerCase().replaceAll("\\s+", ""), c != null ? c : "TY BCA"));
+                    String n = getSafeString(ds, "name");
+                    String p = getSafeString(ds, "password");
+                    String c = getSafeString(ds, "className");
+                    String e = getSafeString(ds, "email");
+                    String ph = getSafeString(ds, "phone");
+                    if (!n.isEmpty()) {
+                        list.add(new TempStudent(n, !p.isEmpty() ? p : n.toLowerCase().replaceAll("\\s+", ""), !c.isEmpty() ? c : "TY BCA", e, ph));
                     }
                 }
             }
@@ -267,12 +384,14 @@ public class CloudRepository {
                 if (ts.name.equalsIgnoreCase(formattedName)) {
                     ts.password = finalPass;
                     ts.className = className;
+                    ts.email = email;
+                    ts.phone = phone;
                     exists = true;
                     break;
                 }
             }
             if (!exists) {
-                list.add(new TempStudent(formattedName, finalPass, className));
+                list.add(new TempStudent(formattedName, finalPass, className, email, phone));
             }
 
             // Group by className and re-assign class-level Roll numbers 1, 2, 3...
@@ -295,6 +414,8 @@ public class CloudRepository {
                     sMap.put("password", cList.get(i).password);
                     sMap.put("className", entry.getKey());
                     sMap.put("studentId", sId);
+                    sMap.put("email", cList.get(i).email);
+                    sMap.put("phone", cList.get(i).phone);
                     updatedStudents.put(String.valueOf(globalCounter++), sMap);
                 }
             }
@@ -303,22 +424,32 @@ public class CloudRepository {
         });
     }
 
+    public static void addStudentAndReorder(String rawName, String password, String className) {
+        addStudentAndReorder(rawName, password, className, "", "");
+    }
+
+    public static void addStudentAndReorder(String rawName, String password) {
+        addStudentAndReorder(rawName, password, "TY BCA", "", "");
+    }
+
     // Remove Student and Re-assign Roll numbers per class
     public static void removeStudentAndReorder(String rollToRemove, String className) {
         studentRef.get().addOnSuccessListener(snapshot -> {
             List<TempStudent> list = new ArrayList<>();
             if (snapshot.exists()) {
                 for (DataSnapshot ds : snapshot.getChildren()) {
-                    String r = ds.child("roll").getValue(String.class);
-                    String n = ds.child("name").getValue(String.class);
-                    String p = ds.child("password").getValue(String.class);
-                    String c = ds.child("className").getValue(String.class);
-                    if (n != null) {
-                        String targetClass = c != null ? c : "TY BCA";
-                        if (r != null && r.equalsIgnoreCase(rollToRemove) && targetClass.equalsIgnoreCase(className)) {
+                    String r = getSafeString(ds, "roll");
+                    String n = getSafeString(ds, "name");
+                    String p = getSafeString(ds, "password");
+                    String c = getSafeString(ds, "className");
+                    String e = getSafeString(ds, "email");
+                    String ph = getSafeString(ds, "phone");
+                    if (!n.isEmpty()) {
+                        String targetClass = !c.isEmpty() ? c : "TY BCA";
+                        if (!r.isEmpty() && r.equalsIgnoreCase(rollToRemove) && targetClass.equalsIgnoreCase(className)) {
                             continue;
                         }
-                        list.add(new TempStudent(n, p != null ? p : n.toLowerCase().replaceAll("\\s+", ""), targetClass));
+                        list.add(new TempStudent(n, !p.isEmpty() ? p : n.toLowerCase().replaceAll("\\s+", ""), targetClass, e, ph));
                     }
                 }
             }
@@ -343,6 +474,8 @@ public class CloudRepository {
                     sMap.put("password", cList.get(i).password);
                     sMap.put("className", entry.getKey());
                     sMap.put("studentId", sId);
+                    sMap.put("email", cList.get(i).email);
+                    sMap.put("phone", cList.get(i).phone);
                     updatedStudents.put(String.valueOf(globalCounter++), sMap);
                 }
             }

@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">SmartAttendance</string>
+    <string name="app_copyright">Copyright © 2026 Cronus7612. All rights reserved.</string>
     <string name="faculty_info_format">👨‍🏫 %1$s | ID: #%2$s</string>
     <string name="class_subject_format">%1$s | %2$s</string>
     <string name="student_roster_format">Student Roster (%1$d Students)</string>
@@ -104,4 +105,22 @@
     <string name="defaulter_alert_title">🚨 DEFAULTER WARNING (&lt;75%)</string>
     <string name="defaulter_alert_msg">Attendance is below 75%! Hall ticket for Term End Exams may be withheld. Attend upcoming lectures immediately.</string>
     <string name="todays_schedule_title">📅 Today\'s Scheduled Lectures (Tap to Mark)</string>
+
+    <!-- Logout Strings -->
+    <string name="logout_btn">🚪 Logout</string>
+    <string name="logout_confirm_title">Log Out?</string>
+    <string name="logout_confirm_msg">Are you sure you want to log out of SmartAttendance?</string>
+
+    <!-- Telegram Side Drawer Strings -->
+    <string name="drawer_my_profile">👤 My Profile</string>
+    <string name="drawer_notices">📢 Campus Notices</string>
+    <string name="drawer_leave">📝 Leave Tracker</string>
+    <string name="drawer_settings">⚙️ Settings &amp; Preferences</string>
+    <string name="drawer_logout">🚪 Logout</string>
+
+    <!-- Photo-Exact ERP Attendance Sub-System Strings -->
+    <string name="attendance_mark_title">Attendance Mark</string>
+    <string name="pending_attendance_title">Pending Attendance</string>
+    <string name="previous_attendance_title">Previous Attendance</string>
+    <string name="view_other_attendance_title">View Other Student Attendance</string>
 </resources>

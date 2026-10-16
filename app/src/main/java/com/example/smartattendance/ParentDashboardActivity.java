@@ -1,10 +1,13 @@
 package com.example.smartattendance;
 
+import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import com.google.android.material.button.MaterialButton;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.ValueEventListener;
@@ -20,6 +23,7 @@ public class ParentDashboardActivity extends AppCompatActivity {
         setContentView(R.layout.activity_parent_dashboard);
 
         TextView tvParentHeaderInfo = findViewById(R.id.tvParentHeaderInfo);
+        MaterialButton btnLogout = findViewById(R.id.btnLogout);
         tvParentOverallPercent = findViewById(R.id.tvParentOverallPercent);
         tvParentAcademicStatus = findViewById(R.id.tvParentAcademicStatus);
         tvParentNoticeInfo = findViewById(R.id.tvParentNoticeInfo);
@@ -35,8 +39,42 @@ public class ParentDashboardActivity extends AppCompatActivity {
             tvParentHeaderInfo.setText("Monitoring Child: " + childName + " (#" + childRoll + ")");
         }
 
+        if (btnLogout != null) {
+            btnLogout.setOnClickListener(v -> confirmLogout());
+        }
+
         loadChildAttendance(childName);
         listenCampusNotices();
+    }
+
+    private void confirmLogout() {
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.logout_confirm_title)
+                .setMessage(R.string.logout_confirm_msg)
+                .setPositiveButton("Logout", (dialog, which) -> {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                })
+                .setNegativeButton("Cancel", null)
+                .show();
+    }
+
+    @Override
+    public void onBackPressed() {
+        new AlertDialog.Builder(this)
+                .setTitle("Exit App / Return to Home?")
+                .setMessage("Do you want to minimize the app or log out?")
+                .setPositiveButton("Minimize", (dialog, which) -> moveTaskToBack(true))
+                .setNegativeButton("Logout", (dialog, which) -> {
+                    Intent intent = new Intent(this, MainActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                    startActivity(intent);
+                    finish();
+                })
+                .setNeutralButton("Cancel", null)
+                .show();
     }
 
     private void loadChildAttendance(String childName) {
